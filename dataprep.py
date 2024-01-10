@@ -2,6 +2,8 @@
 import pandas as pd
 import numpy as np
 from decimal import *
+from xgboost import plot_importance
+from matplotlib import pyplot
 
 def get_data():
 
@@ -20,25 +22,78 @@ def get_data():
     train_data['classification'] = classification
     #print(train_data.head())
 
+    age_grouping(train_data)
+    feature_eng(train_data)
+
     #Removing columns with many NaN values
-    to_remove = ['bank_interest_rate', 'mm_interest_rate', 'mfi_interest_rate', 'other_fsp_interest_rate']
+    to_remove = ['bank_interest_rate', 'mm_interest_rate', 'mfi_interest_rate', 'other_fsp_interest_rate', 'age', 'avg_shock_strength_last_year']
     train_data.drop(to_remove, inplace=True, axis=1)
 
     # Remove rows with NA
     train_data.dropna(inplace=True)
     #print(train_data)
 
-    # Partition to training (70%) validation (15%) and test (15%) dataset
+    # Undersampling
+    # count = train_data['classification'].value_counts()
+    # np.random.seed(201)
+    # drop_indices = np.random.choice(train_data[train_data['classification'] == 'poor'].index, count['poor'] - count['non-poor'], replace=False)
+    # train_data.drop(drop_indices, inplace=True)
+    # print(train_data['classification'].value_counts())
+
+    # Partition to training (80%) validation (10%) and test (10%) dataset
     # random_state is used to get the same random samples on each run
-    test_data = train_data.sample(frac=0.3, random_state=4)
+    test_data = train_data.sample(frac=0.2, random_state=101)
     train_data.drop(test_data.index, inplace=True)
-    validation_data = test_data.sample(frac=0.5, random_state=7)
+    validation_data = test_data.sample(frac=0.5, random_state=102)
     test_data.drop(validation_data.index, inplace=True)
-    #print(train_data)
-    #print(validation_data)
-    #print(test_data)
+    # print(train_data['classification'].value_counts())
+    # print(validation_data['classification'].value_counts())
+    # print(test_data['classification'].value_counts())
 
     return train_data, validation_data, test_data
+
+def age_grouping(data):
+    age_condition = [
+    (data['age'] < 30 ),
+    (data['age'] >= 30) & (data['age'] < 45),
+    (data['age'] >= 45) & (data['age'] < 60),
+    (data['age'] >= 60)
+    ]
+    age_bins = ['< 30', '30 to 44', '45 to 60', '> 60']
+    data['age_group'] = np.select(age_condition, age_bins)
+
+def feature_eng(df):
+    religion_categories = {'N':'N_Q', 'O':'O_P','P':'O_P', 'Q':'N_Q','X':'X'}
+    df['religion'] = [religion_categories[x] for x in df['religion']]
+    #print(df['religion'].value_counts())
+
+    #num_shocks_last_year 4_5
+    num_shocks_last_year_categories = {0:'0', 1:'1', 2:'2',
+                        3:'3', 4:'4_5', 5:'4_5'}
+    df['num_shocks_last_year'] = [num_shocks_last_year_categories[x] for x in df['num_shocks_last_year']]
+    #print(df['num_shocks_last_year'].value_counts())
+    
+    #num_formal_institutions_last_year 3_or_over
+    num_formal_institutions_last_year_categories = {0:'0', 1:'1', 2:'2',
+                        3:'3_4_5_6', 4:'3_4_5_6', 5:'3_4_5_6', 6:'3_4_5_6'}
+    df['num_formal_institutions_last_year'] = [num_formal_institutions_last_year_categories[x] for x in df['num_formal_institutions_last_year']]
+    #print(df['num_formal_institutions_last_year'].value_counts())
+
+    #num_informal_institutions_last_year 2_or_over
+    num_informal_institutions_last_year_categories = {0:'0', 1:'1', 2:'2_3_4',
+                        3:'2_3_4', 4:'2_3_4'}
+    df['num_informal_institutions_last_year'] = [num_informal_institutions_last_year_categories[x] for x in df['num_informal_institutions_last_year']]
+    #print(df['num_informal_institutions_last_year'].value_counts())
+
+    relationship_to_hh_head_categories = {'Other':'Other', 'Spouse':'Spouse',
+                                        'Head':'Head',
+                                        'Son/Daughter':'Son/Daughter',
+                                        'Sister/Brother':'Sister/Brother',
+                                        'Father/Mother': 'Father/Mother',
+                                        'Unknown':'Other'}
+    df['relationship_to_hh_head'] = [relationship_to_hh_head_categories[x] for x in df['relationship_to_hh_head']]
+    #print(df['relationship_to_hh_head'].value_counts())
+
 
 def get_table(train_data):
     # Group by classification (separate poor and non-poor dataset)
@@ -48,12 +103,14 @@ def get_table(train_data):
     #print(train_poor.head())
     #print(train_nonpoor.head())
 
-    cols_insignificant = ['row_id', 'country']
-    cols_numeric = ['age','avg_shock_strength_last_year', 'num_formal_institutions_last_year', 'num_informal_institutions_last_year', 'num_financial_activities_last_year']
-    cols_removed = cols_insignificant + cols_numeric + ['poverty_probability', 'classification']
+    cols_insignificant = ['row_id']
+    #cols_numeric = ['age','avg_shock_strength_last_year', 'num_formal_institutions_last_year', 'num_informal_institutions_last_year', 'num_financial_activities_last_year']
+    #cols_numeric = ['age','avg_shock_strength_last_year']
+    #cols_removed = cols_insignificant + cols_numeric + ['poverty_probability', 'classification']
+    cols_removed = cols_insignificant + ['poverty_probability', 'classification']
     
     # Checker added for leave-one-out validation
-    cols_numeric = [col for col in cols_numeric if col in train_data.columns]
+    #cols_numeric = [col for col in cols_numeric if col in train_data.columns]
     cols_removed = [col for col in cols_removed if col in train_data.columns]
 
     # For categorical data
@@ -79,29 +136,29 @@ def get_table(train_data):
     #     print()
         
     # For numeric data
-    numeric_cols_list = {}
-    for feature in train_data[cols_numeric]:
-        classes = {}
-        fvals_poor = train_poor[feature]
-        fvals_nonpoor = train_nonpoor[feature]
+    # numeric_cols_list = {}
+    # for feature in train_data[cols_numeric]:
+    #     classes = {}
+    #     fvals_poor = train_poor[feature]
+    #     fvals_nonpoor = train_nonpoor[feature]
         
-        # Compute for class poor
-        vals = {}
-        vals['mean'] = np.mean(fvals_poor)
-        vals['std'] = np.std(fvals_poor)
-        classes['poor'] = vals
+    #     # Compute for class poor
+    #     vals = {}
+    #     vals['mean'] = np.mean(fvals_poor)
+    #     vals['std'] = np.std(fvals_poor)
+    #     classes['poor'] = vals
 
-        # Compute for class non-poor
-        vals = {}
-        vals['mean'] = np.mean(fvals_nonpoor)
-        vals['std'] = np.std(fvals_nonpoor)
-        classes['non-poor'] = vals
+    #     # Compute for class non-poor
+    #     vals = {}
+    #     vals['mean'] = np.mean(fvals_nonpoor)
+    #     vals['std'] = np.std(fvals_nonpoor)
+    #     classes['non-poor'] = vals
         
-        numeric_cols_list[feature] = classes
+    #     numeric_cols_list[feature] = classes
 
     #print(numeric_cols_list['avg_shock_strength_last_year'])
         
-    return freq_table_dfs, likelihood_table_dfs, numeric_cols_list
+    return freq_table_dfs, likelihood_table_dfs #, numeric_cols_list
 
 
 # Computes the normal distribution formula for numeric features
@@ -114,23 +171,42 @@ def normal_dist(x , mean , std):
 def get_measures(true_label, pred_label):
     correct_cnt = 0
     ave_sse = 0
+    TP = 0
+    FP = 0
+    TN = 0
+    FN = 0
     for i in true_label.index:
         if true_label.loc[i] == pred_label.loc[i]:
             correct_cnt += 1
         else:
             ave_sse += 1
+        if true_label.loc[i] == 'poor':
+            if pred_label.loc[i] == 'poor':
+                TP += 1
+            else:
+                FN += 1
+        elif true_label.loc[i] == 'non-poor':
+            if pred_label.loc[i] == 'non-poor':
+                TN += 1
+            else:
+                FP += 1
     
     accuracy = correct_cnt / len(true_label)
     ave_sse = (1/len(true_label)) * ave_sse
-    return accuracy, ave_sse
+    precision = TP / (TP + FP)
+    recall = TP / (TP + FN)
+    f2_score = (5 * precision * recall) / (4 * precision + recall)
+    specificity = TN / (TN + FP)
+    balanced_acc = (recall + specificity) / 2
+    return accuracy, ave_sse, precision, recall, f2_score, specificity, balanced_acc
 
 # Performs the naive bayes classifier
 def naive_bayes(train_data, test_data, likelihood_table_dfs, numeric_cols_list):
 
     # Compute P(poor) and P(non-poor)
     count = train_data['classification'].value_counts()
-    P_poor = count.iloc[0] / sum(count)
-    P_nonpoor = count.iloc[1] / sum(count)
+    P_poor = count.loc['poor'] / sum(count)
+    P_nonpoor = count.loc['non-poor'] / sum(count)
 
     #print(likelihood_table_dfs.keys())
     
@@ -152,13 +228,13 @@ def naive_bayes(train_data, test_data, likelihood_table_dfs, numeric_cols_list):
             P_data_nonpoor += Decimal(likelihood_table_dfs[feature]['non-poor'][v]).ln()
         
         # For each feature (numeric)
-        for feature in numeric_cols_list:
-            # Get the sample value as x, and compute normal dist; multiply this to previously computed likelihood prob
-            v = test_data[feature][i]
-            mean_poor, mean_nonpoor = numeric_cols_list[feature]['poor']['mean'], numeric_cols_list[feature]['non-poor']['mean']
-            std_poor, std_noonpoor = numeric_cols_list[feature]['poor']['std'], numeric_cols_list[feature]['non-poor']['std']
-            P_data_poor += Decimal(normal_dist(v, mean_poor, std_poor)).ln()
-            P_data_nonpoor += Decimal(normal_dist(v, mean_nonpoor, std_noonpoor)).ln()
+        # for feature in numeric_cols_list:
+        #     # Get the sample value as x, and compute normal dist; multiply this to previously computed likelihood prob
+        #     v = test_data[feature][i]
+        #     mean_poor, mean_nonpoor = numeric_cols_list[feature]['poor']['mean'], numeric_cols_list[feature]['non-poor']['mean']
+        #     std_poor, std_noonpoor = numeric_cols_list[feature]['poor']['std'], numeric_cols_list[feature]['non-poor']['std']
+        #     P_data_poor += Decimal(normal_dist(v, mean_poor, std_poor)).ln()
+        #     P_data_nonpoor += Decimal(normal_dist(v, mean_nonpoor, std_noonpoor)).ln()
         
         # Multiply likelihood prob to class prior probability
         P_poor_temp = P_data_poor + Decimal(P_poor).ln()
@@ -181,18 +257,22 @@ def naive_bayes(train_data, test_data, likelihood_table_dfs, numeric_cols_list):
     pred_labels_df = pd.DataFrame(pred_labels)
     pred_labels_df.index = pred_labels_df[0]
     pred_labels_df.columns = ['row_id', 'prediction']
-    #print(pred_labels_df)
-    #print(test_data)
+    # print(pred_labels_df)
+    # print(test_data)
 
     # Evaluate classifier
-    accuracy, ave_sse = get_measures(test_data['classification'], pred_labels_df['prediction'])
-    return accuracy, ave_sse
+    accuracy, ave_sse, precision, recall, f2_score, specificity, balanced_acc = get_measures(test_data['classification'], pred_labels_df['prediction'])
+    return accuracy, ave_sse, precision, recall, f2_score, specificity, balanced_acc
 
 
 # Performs k-fold validation
 def cross_validation(k):
     # Get data
     train_data, validation_data, test_data = get_data()
+
+    train_data = train_data.filter(['country','is_urban','married','education_level','literacy','employment_type_last_year','income_friends_family_last_year','income_public_sector_last_year','borrowing_recency','num_shocks_last_year','borrowed_for_emergency_last_year','can_call','can_make_transaction','phone_ownership','reg_bank_acct','active_mm_user','active_informal_nbfi_user','nonreg_active_mm_user',
+                                    'row_id','poverty_probability','classification'])
+    print("------------")
 
     # Uncomment to perform hold-out validation
     # freq_table_dfs, likelihood_table_dfs, numeric_cols_list = get_table(train_data)
@@ -202,50 +282,269 @@ def cross_validation(k):
     n = len(train_data) // k
     train_data_temp = train_data
     accuracy_list = []
+    f2score_list = []
+    balancedacc_list = []
     for i in range(k):
         # If 2nd iteration onwards, make sure to not pick previously tested samples
         if i > 0:
             train_data_temp = train_data.drop(new_test.index)
-        new_test = train_data_temp.sample(n=n, random_state=100)
+        new_test = train_data_temp.sample(n=n)
         new_train = train_data.drop(new_test.index)
         # Get the likelihood table
-        freq_table_dfs, likelihood_table_dfs, numeric_cols_list = get_table(new_train)
+        freq_table_dfs, likelihood_table_dfs = get_table(new_train)
         # Classify
-        accuracy, ave_sse = naive_bayes(new_train, new_test, likelihood_table_dfs, numeric_cols_list)
-        print(accuracy)
+        accuracy, ave_sse, precision, recall, f2_score, specificity, balanced_acc = naive_bayes(new_train, new_test, likelihood_table_dfs, None)
+        #accuracy, ave_sse, precision, recall, f2_score, specificity, balanced_acc = loocv(new_train, new_test)
+        print(accuracy, ave_sse, precision, recall, f2_score, specificity, balanced_acc)
         accuracy_list.append(accuracy)
+        f2score_list.append(f2_score)
+        balancedacc_list.append(balanced_acc)
 
     classifier_accuracy = sum(accuracy_list) / k
-    return classifier_accuracy
+    classifier_f2score = sum(f2score_list) / k
+    classifier_balancedacc = sum(balancedacc_list) / k
+    return classifier_accuracy, classifier_f2score, classifier_balancedacc
 
 
 def feature_selection():
     # Get data
     train_data, validation_data, test_data = get_data()
+
     # Remove insignificant features not to be tested
-    features = train_data.drop(['row_id', 'country', 'poverty_probability', 'classification'], axis='columns').columns
+    #features = train_data.drop(['row_id', 'country', 'poverty_probability', 'classification'], axis='columns').columns
+    #train_data.drop(['row_id','poverty_probability','classification'], axis='columns')
+    #validation_data.drop(['row_id','poverty_probability','classification'], axis='columns')
+
+    #best_feats = [2,0,31,16,53,30,7,35,15,6,5,23,12,11,1]
+    #best_feats = [2,0,31,16,53,30,7,35,15,6]
+    #best_feats = [2,0,31,16,53,30,7,35,15,6,5,23,12,11,1,27,18,17,4,3]
+    #best_feats = [0,53,1]
+    column_headers = list(train_data.drop(['row_id','poverty_probability','classification'], axis='columns').columns.values)
+    #to_remove = [column_headers[i] for i in range(len(column_headers)) if i not in best_feats]
+    #to_retain = [column_headers[i] for i in best_feats]
+    #print(to_retain)
+    #print(to_remove)
+
+    #train_data.drop(to_remove, axis='columns', inplace=True)
+    #validation_data.drop(to_remove, axis='columns', inplace=True)
+    #features = to_retain
+
+    #print(train_data.columns)
 
     accuracy_list = {}
-    for feature in features:
-        # Drop the current feature
-        new_train = train_data.drop(feature, axis='columns')
-        new_test = validation_data.drop(feature, axis='columns')
-        # Get the likelihood table
-        freq_table_dfs, likelihood_table_dfs, numeric_cols_list = get_table(new_train)
-        # Classify
-        accuracy, ave_sse = naive_bayes(new_train, new_test, likelihood_table_dfs, numeric_cols_list)
-        print(f"{feature}\t{accuracy}\t{ave_sse}")
-        accuracy_list[feature] = accuracy
+    f2_list = {}
+    # f = open("loocv_results.txt", 'w')
+    file = open("loocv_results.txt", "a")
+    file.write("Leave-One-Out\n")
+    file.close()
+    best_feat_acc = 0
+    best_feat_f2 = 0
+    best_feat_balacc = 0
+    best_feat_ind = None
+    len_feat = len(column_headers)
+    for i in range(len(column_headers)):
+        file = open("loocv_results.txt", "a")
+        features = column_headers
+        print(f"TOP {len(column_headers)}")
+        file.write("TOP "+str(len(column_headers))+"\n")
+        print(f"         {'feature':<35} {'accuracy':<22} {'ave_sse':<22} {'precision':<22} {'recall':<22} {'f2_score':<22} {'specificity':<22} {'balanced_acc'}")
+        file.write('%35s %22s %22s %22s %22s %22s %22s %22s\n' % ('feature', 'accuracy', 'ave_sse', 'precision', 'recall', 'f2_score', 'specificity', 'balanced_acc'))
+        file.close()
 
-    return accuracy_list
+        tr_acc = 0
+        tr_f2 = 0
+        tr_balacc = 0
+        tr = None
+        cnt = 0
+        for feature in features:
+            # Drop the current feature
+            new_train = train_data.drop(feature, axis='columns')
+            new_test = validation_data.drop(feature, axis='columns')
+            # Get the likelihood table
+            freq_table_dfs, likelihood_table_dfs = get_table(new_train)
+            # Classify
+            accuracy, ave_sse, precision, recall, f2_score, specificity, balanced_acc = naive_bayes(new_train, new_test, likelihood_table_dfs, None)
+            print(f"removed: {feature:<40} {accuracy:<22} {ave_sse:<22} {precision:<22} {recall:<22} {f2_score:<22} {specificity:<22} {balanced_acc}")
+            file = open("loocv_results.txt", "a")
+            file.write(f"removed: {feature:<40} {accuracy:<22} {ave_sse:<22} {precision:<22} {recall:<22} {f2_score:<22} {specificity:<22} {balanced_acc}\n")
+            file.close()
+            # if accuracy > tr_acc:
+            #     tr_acc = accuracy
+            #     tr = cnt
+            # accuracy_list[feature] = accuracy
+            # cnt += 1
+            if balanced_acc > tr_balacc:
+                tr_f2 = f2_score
+                tr_acc = accuracy
+                tr_balacc = balanced_acc
+                tr = cnt
+            f2_list[feature] = f2_score
+            cnt += 1
+        file = open("loocv_results.txt", "a")
+        file.write("\n\nREMOVED: "+str(column_headers[tr])+"\n")
+        file.close()
+        train_data.drop(column_headers[tr], axis='columns', inplace=True)
+        validation_data.drop(column_headers[tr], axis='columns', inplace=True)
+        column_headers.pop(tr)
+        if tr_balacc > best_feat_balacc:
+            best_feat_acc = tr_acc
+            best_feat_f2 = tr_f2
+            best_feat_balacc = tr_balacc
+            best_feat_ind = i
+        file = open("loocv_results.txt", "a")
+        file.write("BEST: Top "+str(len_feat - best_feat_ind)+" with balanced acc "+str(best_feat_balacc)+"\n")
+        file.write("BEST: Top "+str(len_feat - best_feat_ind)+" with f2 score "+str(best_feat_f2)+"\n")
+        file.write("BEST: Top "+str(len_feat - best_feat_ind)+" with accuracy "+str(best_feat_acc)+"\n")
+        file.close()
+    return accuracy_list, f2_list
+
+
+def loocv(train_data, test_data):
+    # Train the model on training data
+    # train_data, validation_data, test_data = get_data()
+    # train_data = train_data.filter(['country','is_urban','married','education_level','literacy','employment_type_last_year','income_friends_family_last_year','income_public_sector_last_year','borrowing_recency','num_shocks_last_year','borrowed_for_emergency_last_year','can_call','can_make_transaction','phone_ownership','reg_bank_acct','active_mm_user','active_informal_nbfi_user','nonreg_active_mm_user',
+    #                                 'row_id','poverty_probability','classification'])
+    # test_data = validation_data.filter(['country','is_urban','married','education_level','literacy','employment_type_last_year','income_friends_family_last_year','income_public_sector_last_year','borrowing_recency','num_shocks_last_year','borrowed_for_emergency_last_year','can_call','can_make_transaction','phone_ownership','reg_bank_acct','active_mm_user','active_informal_nbfi_user','nonreg_active_mm_user',
+    #                                 'row_id','poverty_probability','classification'])
+    X_train1 = train_data.drop(['row_id','poverty_probability', 'classification'], axis='columns')
+    y_train1 = train_data['classification']
+    X_test1 = test_data.drop(['row_id','poverty_probability', 'classification'], axis='columns')
+    y_test1 = test_data['classification']
+
+    from sklearn.preprocessing import LabelEncoder
+    le = LabelEncoder()
+    X_train = X_train1.apply(LabelEncoder().fit_transform)
+    y_train = pd.DataFrame(y_train1).apply(le.fit_transform)
+    # X_train = X_train.drop('classification', axis='columns')
+    X_test = X_test1.apply(le.fit_transform)
+    y_test = pd.DataFrame(y_test1).apply(le.fit_transform)
+    # X_test = X_test.drop('classification', axis='columns')
+    #print(X_train.dtypes)
+    
+    feature_list = list(X_train.columns)
+    X_train= np.array(X_train, dtype=object)
+    y_train = np.array(y_train, dtype=int).ravel()
+    X_test= np.array(X_test, dtype=object)
+    y_test = np.array(y_test, dtype=int).ravel()
+    #print(y_test, X_test)
+
+    # Instantiate model
+    import xgboost
+    from xgboost import XGBRegressor
+    from sklearn.naive_bayes import GaussianNB
+    from sklearn.neighbors import KNeighborsClassifier
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.tree import DecisionTreeClassifier
+    from sklearn import svm
+    optimal_alpha = 1
+    #NB_optimal = svm.SVC(kernel='linear')
+    #NB_optimal = DecisionTreeClassifier()
+    #NB_optimal = LogisticRegression()
+    NB_optimal = KNeighborsClassifier(n_neighbors=int(np.sqrt([len(X_train)])))
+    #print(int(np.sqrt([len(X_train)])))
+    #NB_optimal = XGBRegressor()
+    NB_optimal.fit(X_train, y_train)
+    
+    # Get importances:
+    # neg_class_prob_sorted = NB_optimal.feature_log_prob_[0, :].argsort()[::-1]
+    # pos_class_prob_sorted = NB_optimal.feature_log_prob_[1, :].argsort()[::-1]
+
+    # print(neg_class_prob_sorted)
+    # print(np.take(feature_list, neg_class_prob_sorted))
+    # print(pos_class_prob_sorted)
+    # print(np.take(feature_list, pos_class_prob_sorted))
+
+    # plot feature importance
+    # print(X_train1.columns)
+    # plot_importance(NB_optimal)
+    # pyplot.show()
+
+    pred = NB_optimal.predict(X_test)
+    pred = pd.DataFrame(pred)
+    #print(pred)
+    # new_p = []
+    # for ind in range(len(pred[0])):
+    #     if pred[0].loc[ind] >= 0.5:
+    #         new_p.append(1)
+    #     else:
+    #         new_p.append(0)
+    # pred[0] = new_p
+    #print(pred[0])
+    #pred = pred1.apply(LabelEncoder().fit_transform)
+    pred1 = le.inverse_transform(pred[0])
+    pred1 = pd.DataFrame(pred1)
+
+    y_test = pd.DataFrame(y_test)
+    
+    y_test1 = y_test1.reset_index(drop=True)
+    # print(y_test1)
+    # print(pred1[0])
+    accuracy, ave_sse, precision, recall, f2_score, specificity, balanced_acc = get_measures(y_test1, pred1[0])
+    print(accuracy, ave_sse, precision, recall, f2_score, specificity, balanced_acc)
+
+    from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
+    # print(y_test)
+    # print(pred[0])
+    # mse = mean_squared_error(y_test[0], pred[0])
+    # print(mse, ave_sse)
+    # r2 = r2_score(y_test[0], pred[0])
+    # print(r2)
+
+    return accuracy, ave_sse, precision, recall, f2_score, specificity, balanced_acc
+
+
+def predict():
+    train_data, validation_data, test_data = get_data()
+    train_data = train_data.filter(['country','is_urban','married','education_level','literacy','employment_type_last_year','income_friends_family_last_year','income_public_sector_last_year','borrowing_recency','num_shocks_last_year','borrowed_for_emergency_last_year','can_call','can_make_transaction','phone_ownership','reg_bank_acct','active_mm_user','active_informal_nbfi_user','nonreg_active_mm_user',
+                                    'row_id','poverty_probability','classification'])
+    test_data = validation_data.filter(['country','is_urban','married','education_level','literacy','employment_type_last_year','income_friends_family_last_year','income_public_sector_last_year','borrowing_recency','num_shocks_last_year','borrowed_for_emergency_last_year','can_call','can_make_transaction','phone_ownership','reg_bank_acct','active_mm_user','active_informal_nbfi_user','nonreg_active_mm_user',
+                                    'row_id','poverty_probability','classification'])
+    
+    #freq_table_dfs, likelihood_table_dfs = get_table(train_data)
+    # Classify
+    #accuracy, ave_sse, precision, recall, f2_score, specificity, balanced_acc = naive_bayes(train_data, test_data, likelihood_table_dfs, None)
+    accuracy, ave_sse, precision, recall, f2_score, specificity, balanced_acc = loocv(train_data, test_data)
+    #print(accuracy, ave_sse, precision, recall, f2_score, specificity, balanced_acc)
+    return accuracy, ave_sse, precision, recall, f2_score, specificity, balanced_acc
+    
 
 
 
 
 # Test of Classifier Accuracy (Training Dataset)
-# for k in [5, 10, 20]:
-#     classifier_accuracy = cross_validation(k)
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning) 
+# for k in [5,10,15,20,25,30]:
+#     classifier_accuracy, classifier_f2score, classifier_balancedacc = cross_validation(k)
 #     print(f"Classifier Accuracy at k={k}: {classifier_accuracy}")
+#     print(f"Classifier F2 Score at k={k}: {classifier_f2score}")
+#     print(f"Classifier Balanced Accuracy at k={k}: {classifier_balancedacc}")
 
-#cross_validation(k=10)
+#get_data()
+
+#ave = cross_validation(k=30)
+#print("AVERAGE ACCURACY: ", ave)
+
 #feature_selection()
+
+# sum_acc = 0
+# sum_sse = 0
+# sum_prec = 0
+# sum_rec = 0
+# sum_f2 = 0
+# sum_spec = 0
+# sum_balacc = 0
+# k = 10
+# for i in range(k):
+#     accuracy, ave_sse, precision, recall, f2_score, specificity, balanced_acc = predict()
+#     sum_acc+=accuracy
+#     sum_sse+=ave_sse
+#     sum_prec+=precision
+#     sum_rec+=recall
+#     sum_f2+=f2_score
+#     sum_spec+=specificity
+#     sum_balacc+=balanced_acc
+# print("Average:")
+# print(sum_acc/k, sum_sse/k, sum_prec/k, sum_rec/k, sum_f2/k, sum_spec/k, sum_balacc/k)
+
+predict()

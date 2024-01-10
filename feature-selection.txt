@@ -1,0 +1,575 @@
+[ 4  1  5  8 39 14  6  9 35 34 15  7 50 52 36 12 44  3  2 30 29  0 17 11
+ 10 24 23 40 26 41 28 37 13 38 22 19 42 45 46 16 25 51 31 48 27 32 33 20
+ 43 18 49 47 21]
+['religion' 'age' 'relationship_to_hh_head' 'can_add' 'phone_ownership'
+ 'employment_type_last_year' 'education_level' 'can_divide' 'can_call'
+ 'phone_technology' 'share_hh_income_provided' 'literacy'
+ 'num_formal_institutions_last_year' 'num_financial_activities_last_year'
+ 'can_text' 'employed_last_year' 'financially_included' 'married' 'female'
+ 'avg_shock_strength_last_year' 'num_shocks_last_year' 'is_urban'
+ 'income_friends_family_last_year' 'can_calc_compounding'
+ 'can_calc_percents' 'formal_savings' 'borrowing_recency'
+ 'advanced_phone_use' 'cash_property_savings' 'reg_bank_acct'
+ 'has_investment' 'can_use_internet' 'employment_category_last_year'
+ 'can_make_transaction' 'num_times_borrowed_last_year'
+ 'income_own_business_last_year' 'reg_mm_acct' 'active_bank_user'
+ 'active_mm_user' 'income_ag_livestock_last_year' 'informal_savings'
+ 'num_informal_institutions_last_year' 'borrowed_for_emergency_last_year'
+ 'active_informal_nbfi_user' 'has_insurance'
+ 'borrowed_for_daily_expenses_last_year'
+ 'borrowed_for_home_or_biz_last_year' 'income_private_sector_last_year'
+ 'reg_formal_nbfi_account' 'income_government_last_year'
+ 'nonreg_active_mm_user' 'active_formal_nbfi_user'
+ 'income_public_sector_last_year']
+[ 4  1  5  8  9 39 14  6 35 15  3 29 30 12  2 34  7 50 52 23 11 44 22 13
+ 36 16 26 10 17 19 42 28  0 31 24 40 38 41 46 32 37 25 45 51 33 48 27 49
+ 43 20 18 47 21]
+['religion' 'age' 'relationship_to_hh_head' 'can_add' 'can_divide'
+ 'phone_ownership' 'employment_type_last_year' 'education_level'
+ 'can_call' 'share_hh_income_provided' 'married' 'num_shocks_last_year'
+ 'avg_shock_strength_last_year' 'employed_last_year' 'female'
+ 'phone_technology' 'literacy' 'num_formal_institutions_last_year'
+ 'num_financial_activities_last_year' 'borrowing_recency'
+ 'can_calc_compounding' 'financially_included'
+ 'num_times_borrowed_last_year' 'employment_category_last_year' 'can_text'
+ 'income_ag_livestock_last_year' 'cash_property_savings'
+ 'can_calc_percents' 'income_friends_family_last_year'
+ 'income_own_business_last_year' 'reg_mm_acct' 'has_investment' 'is_urban'
+ 'borrowed_for_emergency_last_year' 'formal_savings' 'advanced_phone_use'
+ 'can_make_transaction' 'reg_bank_acct' 'active_mm_user'
+ 'borrowed_for_daily_expenses_last_year' 'can_use_internet'
+ 'informal_savings' 'active_bank_user'
+ 'num_informal_institutions_last_year'
+ 'borrowed_for_home_or_biz_last_year' 'active_informal_nbfi_user'
+ 'has_insurance' 'nonreg_active_mm_user' 'reg_formal_nbfi_account'
+ 'income_private_sector_last_year' 'income_government_last_year'
+ 'active_formal_nbfi_user' 'income_public_sector_last_year']
+(0.6679558011049723, 0.3320441988950277)
+
+---------------------------------------------------------------------------------
+EXPERIMENT 1: Leave-One-Out Cross Validation
+is_urban        0.6751381215469613      0.3248618784530387
+age     0.6817679558011049      0.31823204419889506
+female  0.6806629834254143      0.3193370165745857
+married 0.6790055248618785      0.32099447513812157
+religion        0.6767955801104972      0.32320441988950277
+relationship_to_hh_head 0.6801104972375691      0.31988950276243094
+education_level 0.6784530386740332      0.3215469613259669
+literacy        0.6823204419889503      0.31767955801104975
+can_add 0.6834254143646409      0.3165745856353591
+can_divide      0.6828729281767956      0.31712707182320443
+can_calc_percents       0.6795580110497238      0.32044198895027626
+can_calc_compounding    0.6823204419889503      0.31767955801104975
+employed_last_year      0.6812154696132596      0.3187845303867404
+employment_category_last_year   0.6806629834254143      0.3193370165745857
+employment_type_last_year       0.6861878453038674      0.3138121546961326
+share_hh_income_provided        0.6828729281767956      0.31712707182320443
+income_ag_livestock_last_year   0.6767955801104972      0.32320441988950277
+income_friends_family_last_year 0.6790055248618785      0.32099447513812157
+income_government_last_year     0.6806629834254143      0.3193370165745857
+income_own_business_last_year   0.6779005524861879      0.3220994475138122
+income_private_sector_last_year 0.6817679558011049      0.31823204419889506
+income_public_sector_last_year  0.6801104972375691      0.31988950276243094
+num_times_borrowed_last_year    0.6801104972375691      0.31988950276243094
+borrowing_recency       0.6795580110497238      0.32044198895027626
+formal_savings  0.6790055248618785      0.32099447513812157
+informal_savings        0.6828729281767956      0.31712707182320443
+cash_property_savings   0.6839779005524862      0.31602209944751386
+has_insurance   0.6806629834254143      0.3193370165745857
+has_investment  0.6817679558011049      0.31823204419889506
+num_shocks_last_year    0.6812154696132596      0.3187845303867404
+avg_shock_strength_last_year    0.6812154696132596      0.3187845303867404
+borrowed_for_emergency_last_year        0.6817679558011049      0.31823204419889506
+borrowed_for_daily_expenses_last_year   0.6812154696132596      0.3187845303867404
+borrowed_for_home_or_biz_last_year      0.6834254143646409      0.3165745856353591
+phone_technology        0.6883977900552486      0.3116022099447514
+can_call        0.6817679558011049      0.31823204419889506
+can_text        0.6828729281767956      0.31712707182320443
+can_use_internet        0.6779005524861879      0.3220994475138122
+can_make_transaction    0.6812154696132596      0.3187845303867404
+phone_ownership 0.6883977900552486      0.3116022099447514
+advanced_phone_use      0.6784530386740332      0.3215469613259669
+reg_bank_acct   0.6773480662983425      0.32265193370165746
+reg_mm_acct     0.6856353591160221      0.3143646408839779
+reg_formal_nbfi_account 0.6828729281767956      0.31712707182320443
+financially_included    0.6883977900552486      0.3116022099447514
+active_bank_user        0.6801104972375691      0.31988950276243094
+active_mm_user  0.6834254143646409      0.3165745856353591
+active_formal_nbfi_user 0.6823204419889503      0.31767955801104975
+active_informal_nbfi_user       0.6828729281767956      0.31712707182320443
+nonreg_active_mm_user   0.6834254143646409      0.3165745856353591
+num_formal_institutions_last_year       0.6828729281767956      0.31712707182320443
+num_informal_institutions_last_year     0.6823204419889503      0.31767955801104975
+num_financial_activities_last_year      0.6801104972375691      0.31988950276243094
+
+---------------------------------------------------------------------------------
+EXPERIMENT 2: Top 10 Features
+
+Index(['row_id', 'country', 'age', 'religion', 'relationship_to_hh_head',
+       'education_level', 'can_add', 'can_divide', 'employment_type_last_year',
+       'share_hh_income_provided', 'can_call', 'phone_ownership',
+       'poverty_probability', 'classification'],
+      dtype='object')
+row_id  0.6878453038674033      0.3121546961325967
+
+---------------------------------------------------------------------------------
+EXPERIMENT 3: Top 5 Features
+
+Index(['row_id', 'country', 'age', 'religion', 'relationship_to_hh_head',
+       'can_add', 'can_divide', 'poverty_probability', 'classification'],
+      dtype='object')
+row_id  0.63646408839779        0.36353591160221
+
+---------------------------------------------------------------------------------
+UNDERSAMPLING
+
+[ 4  1  5  8 39  6 14 35  9 34 15  7 36 50 52 12 44  3  2 30 29  0 17 11
+ 23 40 24 10 41 26 37 38 28 13 22 19 42 45 46 16 25 31 51 48 27 33 32 20
+ 43 18 47 49 21]
+['religion' 'age' 'relationship_to_hh_head' 'can_add' 'phone_ownership'
+ 'education_level' 'employment_type_last_year' 'can_call' 'can_divide'
+ 'phone_technology' 'share_hh_income_provided' 'literacy' 'can_text'
+ 'num_formal_institutions_last_year' 'num_financial_activities_last_year'
+ 'employed_last_year' 'financially_included' 'married' 'female'
+ 'avg_shock_strength_last_year' 'num_shocks_last_year' 'is_urban'
+ 'income_friends_family_last_year' 'can_calc_compounding'
+ 'borrowing_recency' 'advanced_phone_use' 'formal_savings'
+ 'can_calc_percents' 'reg_bank_acct' 'cash_property_savings'
+ 'can_use_internet' 'can_make_transaction' 'has_investment'
+ 'employment_category_last_year' 'num_times_borrowed_last_year'
+ 'income_own_business_last_year' 'reg_mm_acct' 'active_bank_user'
+ 'active_mm_user' 'income_ag_livestock_last_year' 'informal_savings'
+ 'borrowed_for_emergency_last_year' 'num_informal_institutions_last_year'
+ 'active_informal_nbfi_user' 'has_insurance'
+ 'borrowed_for_home_or_biz_last_year'
+ 'borrowed_for_daily_expenses_last_year' 'income_private_sector_last_year'
+ 'reg_formal_nbfi_account' 'income_government_last_year'
+ 'active_formal_nbfi_user' 'nonreg_active_mm_user'
+ 'income_public_sector_last_year']
+[ 4  1  5  8  9 39 14  6 35 15  3 29 30 34 12  7  2 50 52 23 11 44 16 13
+ 22 36 26 10 17 19 28 42  0 40 24 31 38 41 46 32 37 25 45 51 33 48 27 49
+ 43 20 18 47 21]
+['religion' 'age' 'relationship_to_hh_head' 'can_add' 'can_divide'
+ 'phone_ownership' 'employment_type_last_year' 'education_level'
+ 'can_call' 'share_hh_income_provided' 'married' 'num_shocks_last_year'
+ 'avg_shock_strength_last_year' 'phone_technology' 'employed_last_year'
+ 'literacy' 'female' 'num_formal_institutions_last_year'
+ 'num_financial_activities_last_year' 'borrowing_recency'
+ 'can_calc_compounding' 'financially_included'
+ 'income_ag_livestock_last_year' 'employment_category_last_year'
+ 'num_times_borrowed_last_year' 'can_text' 'cash_property_savings'
+ 'can_calc_percents' 'income_friends_family_last_year'
+ 'income_own_business_last_year' 'has_investment' 'reg_mm_acct' 'is_urban'
+ 'advanced_phone_use' 'formal_savings' 'borrowed_for_emergency_last_year'
+ 'can_make_transaction' 'reg_bank_acct' 'active_mm_user'
+ 'borrowed_for_daily_expenses_last_year' 'can_use_internet'
+ 'informal_savings' 'active_bank_user'
+ 'num_informal_institutions_last_year'
+ 'borrowed_for_home_or_biz_last_year' 'active_informal_nbfi_user'
+ 'has_insurance' 'nonreg_active_mm_user' 'reg_formal_nbfi_account'
+ 'income_private_sector_last_year' 'income_government_last_year'
+ 'active_formal_nbfi_user' 'income_public_sector_last_year']
+(0.6307870370370371, 0.36921296296296297)
+
+---------------------------------------------------------------------------------
+TOP 15 FEATURES
+['female', 'married', 'literacy', 'can_add', 'can_divide', 'employed_last_year', 'employment_category_last_year', 'income_ag_livestock_last_year', 'income_friends_family_last_year', 'income_government_last_year', 'income_own_business_last_year', 'income_private_sector_last_year', 'income_public_sector_last_year', 'borrowing_recency', 'formal_savings', 'informal_savings', 'cash_property_savings', 'has_insurance', 'has_investment', 'borrowed_for_emergency_last_year', 'borrowed_for_daily_expenses_last_year', 'borrowed_for_home_or_biz_last_year', 'can_call', 'can_text', 'can_use_internet', 'can_make_transaction', 'phone_ownership', 'advanced_phone_use', 'reg_bank_acct', 'reg_mm_acct', 'reg_formal_nbfi_account', 'financially_included', 'active_bank_user', 'active_mm_user', 'active_formal_nbfi_user', 'active_informal_nbfi_user', 'nonreg_active_mm_user', 'num_formal_institutions_last_year', 'num_informal_institutions_last_year']
+removed: country        0.6620370370370371      0.33796296296296297     0.6467889908256881      0.6714285714285714
+removed: is_urban       0.6782407407407407      0.32175925925925924     0.6621004566210046      0.6904761904761905
+removed: age    0.7025462962962963      0.29745370370370366     0.6856492027334852      0.7166666666666667
+removed: religion       0.7094907407407407      0.29050925925925924     0.6933638443935927      0.7214285714285714
+removed: relationship_to_hh_head        0.7118055555555556      0.2881944444444444      0.6921348314606741      0.7333333333333333
+removed: education_level        0.7002314814814815      0.2997685185185185      0.6859122401847575      0.7071428571428572
+removed: can_calc_percents      0.7106481481481481      0.28935185185185186     0.6931818181818182      0.7261904761904762
+removed: can_calc_compounding   0.7094907407407407      0.29050925925925924     0.690744920993228       0.7285714285714285
+removed: employment_type_last_year      0.7118055555555556      0.2881944444444444      0.6930022573363431      0.7309523809523809
+removed: share_hh_income_provided       0.7106481481481481      0.28935185185185186     0.6914414414414415      0.7309523809523809
+removed: num_times_borrowed_last_year   0.7071759259259259      0.29282407407407407     0.6902050113895216      0.7214285714285714
+removed: num_shocks_last_year   0.7129629629629629      0.28703703703703703     0.6928251121076233      0.7357142857142858
+removed: avg_shock_strength_last_year   0.7118055555555556      0.2881944444444444      0.6930022573363431      0.7309523809523809
+removed: phone_technology       0.7129629629629629      0.28703703703703703     0.7018779342723005      0.7119047619047619
+removed: num_financial_activities_last_year     0.7013888888888888      0.2986111111111111      0.69377990430622        0.6904761904761905
+
+-----------------------------------------------------------------------------------
+TOP 10
+
+['is_urban', 'female', 'married', 'religion', 'literacy', 'can_add', 'can_divide', 'can_calc_percents', 'can_calc_compounding', 'employed_last_year', 'employment_category_last_year', 'income_ag_livestock_last_year', 'income_friends_family_last_year', 'income_government_last_year', 'income_own_business_last_year', 'income_private_sector_last_year', 'income_public_sector_last_year', 'num_times_borrowed_last_year', 'borrowing_recency', 'formal_savings', 'informal_savings', 'cash_property_savings', 'has_insurance', 'has_investment', 'borrowed_for_emergency_last_year', 'borrowed_for_daily_expenses_last_year', 'borrowed_for_home_or_biz_last_year', 'can_call', 'can_text', 'can_use_internet', 'can_make_transaction', 'phone_ownership', 'advanced_phone_use', 'reg_bank_acct', 'reg_mm_acct', 'reg_formal_nbfi_account', 'financially_included', 'active_bank_user', 'active_mm_user', 'active_formal_nbfi_user', 'active_informal_nbfi_user', 'nonreg_active_mm_user', 'num_formal_institutions_last_year', 'num_informal_institutions_last_year']
+removed: country        0.6238425925925926      0.3761574074074074      0.6057906458797327      0.6476190476190476
+removed: age    0.6793981481481481      0.32060185185185186     0.664367816091954       0.6880952380952381
+removed: relationship_to_hh_head        0.6770833333333334      0.32291666666666663     0.6620689655172414      0.6857142857142857
+removed: education_level        0.6724537037037037      0.3275462962962963      0.6581986143187067      0.6785714285714286
+removed: employment_type_last_year      0.6909722222222222      0.30902777777777773     0.6783216783216783      0.6928571428571428
+removed: share_hh_income_provided       0.6875  0.3125  0.676056338028169       0.6857142857142857
+removed: num_shocks_last_year   0.6851851851851852      0.31481481481481477     0.6681818181818182      0.7
+removed: avg_shock_strength_last_year   0.6851851851851852      0.31481481481481477     0.6681818181818182      0.7
+removed: phone_technology       0.6759259259259259      0.32407407407407407     0.6658767772511849      0.669047619047619
+removed: num_financial_activities_last_year     0.6782407407407407      0.32175925925925924     0.6674528301886793      0.6738095238095239
+
+-------------------------------------------------------------------------------------
+TOP 20
+
+['literacy', 'can_add', 'can_divide', 'employed_last_year', 'employment_category_last_year', 'income_government_last_year', 'income_own_business_last_year', 'income_private_sector_last_year', 'income_public_sector_last_year', 'borrowing_recency', 'formal_savings', 'informal_savings', 'has_insurance', 'has_investment', 'borrowed_for_emergency_last_year', 'borrowed_for_daily_expenses_last_year', 'borrowed_for_home_or_biz_last_year', 'can_call', 'can_text', 'can_use_internet', 'can_make_transaction', 'phone_ownership', 'advanced_phone_use', 'reg_bank_acct', 'reg_mm_acct', 'reg_formal_nbfi_account', 'financially_included', 'active_bank_user', 'active_mm_user', 'active_formal_nbfi_user', 'active_informal_nbfi_user', 'nonreg_active_mm_user', 'num_formal_institutions_last_year', 'num_informal_institutions_last_year']
+removed: country        0.6817129629629629      0.31828703703703703     0.665903890160183       0.6928571428571428
+removed: is_urban       0.6944444444444444      0.3055555555555555      0.6813953488372093      0.6976190476190476
+removed: age    0.7210648148148148      0.2789351851851852      0.7048054919908466      0.7333333333333333
+removed: female 0.7210648148148148      0.2789351851851852      0.7038724373576309      0.7357142857142858
+removed: married        0.7164351851851852      0.2835648148148148      0.6984126984126984      0.7333333333333333
+removed: religion       0.7175925925925926      0.2824074074074074      0.7027649769585254      0.7261904761904762
+removed: relationship_to_hh_head        0.7233796296296297      0.27662037037037035     0.7070938215102975      0.7357142857142858
+removed: education_level        0.7071759259259259      0.29282407407407407     0.6964705882352941      0.7047619047619048
+removed: can_calc_percents      0.7245370370370371      0.27546296296296297     0.7068181818181818      0.7404761904761905
+removed: can_calc_compounding   0.7199074074074074      0.28009259259259256     0.7031963470319634      0.7333333333333333
+removed: employment_type_last_year      0.71875 0.28125 0.7034482758620689      0.7285714285714285
+removed: share_hh_income_provided       0.7152777777777778      0.2847222222222222      0.7004608294930875      0.7238095238095238
+removed: income_ag_livestock_last_year  0.7233796296296297      0.27662037037037035     0.7099767981438515      0.7285714285714285
+removed: income_friends_family_last_year        0.7129629629629629      0.28703703703703703     0.6945701357466063      0.7309523809523809
+removed: num_times_borrowed_last_year   0.71875 0.28125 0.7015945330296127      0.7333333333333333
+removed: cash_property_savings  0.7222222222222222      0.2777777777777778      0.7036199095022625      0.7404761904761905
+removed: num_shocks_last_year   0.7245370370370371      0.27546296296296297     0.7058823529411765      0.7428571428571429
+removed: avg_shock_strength_last_year   0.7152777777777778      0.2847222222222222      0.6977272727272728      0.7309523809523809
+removed: phone_technology       0.7175925925925926      0.2824074074074074      0.7046511627906977      0.7214285714285714
+removed: num_financial_activities_last_year     0.7094907407407407      0.29050925925925924     0.7016706443914081      0.7
+
+------------------------------------------------------------------------------------------------------
+
+TOP 25
+
+['literacy', 'can_add', 'can_divide', 'employed_last_year', 'income_government_last_year', 'income_own_business_last_year', 'income_private_sector_last_year', 'income_public_sector_last_year', 'borrowing_recency', 'informal_savings', 'has_insurance', 'has_investment', 'borrowed_for_emergency_last_year', 'borrowed_for_daily_expenses_last_year', 'borrowed_for_home_or_biz_last_year', 'can_call', 'can_use_internet', 'phone_ownership', 'advanced_phone_use', 'reg_bank_acct', 'reg_mm_acct', 'reg_formal_nbfi_account', 'financially_included', 'active_bank_user', 'active_mm_user', 'active_formal_nbfi_user', 'active_informal_nbfi_user', 'nonreg_active_mm_user', 'num_informal_institutions_last_year']
+removed: country        0.6666666666666666      0.3333333333333333      0.6493212669683258      0.6833333333333333
+removed: is_urban       0.6875  0.3125  0.6651982378854625      0.719047619047619
+removed: age    0.7013888888888888      0.2986111111111111      0.6792035398230089      0.7309523809523809
+removed: female 0.7025462962962963      0.29745370370370366     0.6807095343680709      0.7309523809523809
+removed: married        0.6956018518518519      0.30439814814814814     0.6725274725274726      0.7285714285714285
+removed: religion       0.7071759259259259      0.29282407407407407     0.6868008948545862      0.7309523809523809
+removed: relationship_to_hh_head        0.6979166666666666      0.3020833333333333      0.6762749445676275      0.7261904761904762
+removed: education_level        0.7013888888888888      0.2986111111111111      0.6792035398230089      0.7309523809523809
+removed: can_calc_percents      0.6967592592592593      0.3032407407407407      0.6740088105726872      0.7285714285714285
+removed: can_calc_compounding   0.7002314814814815      0.2997685185185185      0.6784922394678492      0.7285714285714285
+removed: employment_category_last_year  0.7060185185185185      0.29398148148148145     0.6860986547085202      0.7285714285714285
+removed: employment_type_last_year      0.7025462962962963      0.29745370370370366     0.6839729119638827      0.7214285714285714
+removed: share_hh_income_provided       0.7060185185185185      0.29398148148148145     0.6852678571428571      0.7309523809523809
+removed: income_ag_livestock_last_year  0.6979166666666666      0.3020833333333333      0.6762749445676275      0.7261904761904762
+removed: income_friends_family_last_year        0.6956018518518519      0.30439814814814814     0.673289183222958       0.7261904761904762
+removed: num_times_borrowed_last_year   0.6967592592592593      0.3032407407407407      0.6740088105726872      0.7285714285714285
+removed: formal_savings 0.7037037037037037      0.2962962962962963      0.6830357142857143      0.7285714285714285
+removed: cash_property_savings  0.7013888888888888      0.2986111111111111      0.6792035398230089      0.7309523809523809
+removed: num_shocks_last_year   0.6956018518518519      0.30439814814814814     0.6748329621380846      0.7214285714285714
+removed: avg_shock_strength_last_year   0.7025462962962963      0.29745370370370366     0.6815144766146993      0.7285714285714285
+removed: phone_technology       0.7175925925925926      0.2824074074074074      0.6981981981981982      0.7380952380952381
+removed: can_text       0.6921296296296297      0.30787037037037035     0.668859649122807       0.7261904761904762
+removed: can_make_transaction   0.7094907407407407      0.29050925925925924     0.6832971800433839      0.75
+removed: num_formal_institutions_last_year      0.7071759259259259      0.29282407407407407     0.6876404494382022      0.7285714285714285
+removed: num_financial_activities_last_year     0.7071759259259259      0.29282407407407407     0.6919540229885057      0.7166666666666667
+
+---------------------------------------------------------
+START OF LVOCV, TOP 20
+
+['age', 'country', 'avg_shock_strength_last_year', 'share_hh_income_provided', 'num_financial_activities_last_year', 'num_shocks_last_year', 'education_level', 'phone_technology', 'employment_type_last_year', 'relationship_to_hh_head', 'religion', 'num_times_borrowed_last_year', 'can_calc_compounding', 'can_calc_percents', 'is_urban', 'cash_property_savings', 'income_friends_family_last_year', 'income_ag_livestock_last_year', 'married', 'female']
+         feature                             accuracy               ave_sse                precision              recall
+removed: age                                 0.7210648148148148     0.2789351851851852     0.7048054919908466     0.7333333333333333
+removed: country                             0.6817129629629629     0.31828703703703703    0.665903890160183      0.6928571428571428
+removed: avg_shock_strength_last_year        0.7152777777777778     0.2847222222222222     0.6977272727272728     0.7309523809523809
+removed: share_hh_income_provided            0.7152777777777778     0.2847222222222222     0.7004608294930875     0.7238095238095238
+removed: num_financial_activities_last_year  0.7094907407407407     0.29050925925925924    0.7016706443914081     0.7
+removed: num_shocks_last_year                0.7245370370370371     0.27546296296296297    0.7058823529411765     0.7428571428571429
+removed: education_level                     0.7071759259259259     0.29282407407407407    0.6964705882352941     0.7047619047619048
+removed: phone_technology                    0.7175925925925926     0.2824074074074074     0.7046511627906977     0.7214285714285714
+removed: employment_type_last_year           0.71875                0.28125                0.7034482758620689     0.7285714285714285
+removed: relationship_to_hh_head             0.7233796296296297     0.27662037037037035    0.7070938215102975     0.7357142857142858
+removed: religion                            0.7175925925925926     0.2824074074074074     0.7027649769585254     0.7261904761904762
+removed: num_times_borrowed_last_year        0.71875                0.28125                0.7015945330296127     0.7333333333333333
+removed: can_calc_compounding                0.7199074074074074     0.28009259259259256    0.7031963470319634     0.7333333333333333
+removed: can_calc_percents                   0.7245370370370371     0.27546296296296297    0.7068181818181818     0.7404761904761905
+removed: is_urban                            0.6944444444444444     0.3055555555555555     0.6813953488372093     0.6976190476190476
+removed: cash_property_savings               0.7222222222222222     0.2777777777777778     0.7036199095022625     0.7404761904761905
+removed: income_friends_family_last_year     0.7129629629629629     0.28703703703703703    0.6945701357466063     0.7309523809523809
+removed: income_ag_livestock_last_year       0.7233796296296297     0.27662037037037035    0.7099767981438515     0.7285714285714285
+removed: married                             0.7164351851851852     0.2835648148148148     0.6984126984126984     0.7333333333333333
+removed: female                              0.7210648148148148     0.2789351851851852     0.7038724373576309     0.7357142857142858
+
+-----
+TOP 19
+
+['age', 'country', 'avg_shock_strength_last_year', 'share_hh_income_provided', 'num_financial_activities_last_year', 'education_level', 'phone_technology', 'employment_type_last_year', 'relationship_to_hh_head', 'religion', 'num_times_borrowed_last_year', 'can_calc_compounding', 'can_calc_percents', 'is_urban', 'cash_property_savings', 'income_friends_family_last_year', 'income_ag_livestock_last_year', 'married', 'female']
+         feature                             accuracy               ave_sse                precision              recall
+removed: age                                 0.7199074074074074     0.28009259259259256    0.7013574660633484     0.7380952380952381
+removed: country                             0.6782407407407407     0.32175925925925924    0.6606334841628959     0.6952380952380952
+removed: avg_shock_strength_last_year        0.7141203703703703     0.2858796296296296     0.6988505747126437     0.7238095238095238
+removed: share_hh_income_provided            0.7233796296296297     0.27662037037037035    0.7061503416856492     0.7380952380952381
+removed: num_financial_activities_last_year  0.7199074074074074     0.28009259259259256    0.7079439252336449     0.7214285714285714
+removed: education_level                     0.71875                0.28125                0.7006802721088435     0.7357142857142858
+removed: phone_technology                    0.7118055555555556     0.2881944444444444     0.6947608200455581     0.7261904761904762
+removed: employment_type_last_year           0.7222222222222222     0.2777777777777778     0.7093023255813954     0.7261904761904762
+removed: relationship_to_hh_head             0.7222222222222222     0.2777777777777778     0.7045454545454546     0.7380952380952381
+removed: religion                            0.7175925925925926     0.2824074074074074     0.7037037037037037     0.7238095238095238
+removed: num_times_borrowed_last_year        0.7164351851851852     0.2835648148148148     0.6984126984126984     0.7333333333333333
+removed: can_calc_compounding                0.7233796296296297     0.27662037037037035    0.7042889390519187     0.7428571428571429
+removed: can_calc_percents                   0.7210648148148148     0.2789351851851852     0.7020316027088036     0.7404761904761905
+removed: is_urban                            0.6932870370370371     0.30671296296296297    0.6733780760626398     0.7166666666666667
+removed: cash_property_savings               0.71875                0.28125                0.7015945330296127     0.7333333333333333
+removed: income_friends_family_last_year     0.7129629629629629     0.28703703703703703    0.6928251121076233     0.7357142857142858
+removed: income_ag_livestock_last_year       0.71875                0.28125                0.6997742663656885     0.7380952380952381
+removed: married                             0.7129629629629629     0.28703703703703703    0.6936936936936937     0.7333333333333333
+removed: female                              0.7175925925925926     0.2824074074074074     0.7                    0.7333333333333333
+
+-----
+TOP 18
+
+['age', 'country', 'avg_shock_strength_last_year', 'num_financial_activities_last_year', 'education_level', 'phone_technology', 'employment_type_last_year', 'relationship_to_hh_head', 'religion', 'num_times_borrowed_last_year', 'can_calc_compounding', 'can_calc_percents', 'is_urban', 'cash_property_savings', 'income_friends_family_last_year', 'income_ag_livestock_last_year', 'married', 'female']
+         feature                             accuracy               ave_sse                precision              recall
+removed: age                                 0.7222222222222222     0.2777777777777778     0.7064220183486238     0.7333333333333333
+removed: country                             0.6863425925925926     0.3136574074074074     0.6728538283062645     0.6904761904761905
+removed: avg_shock_strength_last_year        0.7175925925925926     0.2824074074074074     0.6990950226244343     0.7357142857142858
+removed: num_financial_activities_last_year  0.7199074074074074     0.28009259259259256    0.7099056603773585     0.7166666666666667
+removed: education_level                     0.7175925925925926     0.2824074074074074     0.7                    0.7333333333333333
+removed: phone_technology                    0.7199074074074074     0.28009259259259256    0.7050691244239631     0.7285714285714285
+removed: employment_type_last_year           0.7245370370370371     0.27546296296296297    0.7087155963302753     0.7357142857142858
+removed: relationship_to_hh_head             0.7199074074074074     0.28009259259259256    0.7013574660633484     0.7380952380952381
+removed: religion                            0.71875                0.28125                0.7034482758620689     0.7285714285714285
+removed: num_times_borrowed_last_year        0.7199074074074074     0.28009259259259256    0.7004504504504504     0.7404761904761905
+removed: can_calc_compounding                0.7245370370370371     0.27546296296296297    0.7077625570776256     0.7380952380952381
+removed: can_calc_percents                   0.7164351851851852     0.2835648148148148     0.6984126984126984     0.7333333333333333
+removed: is_urban                            0.6932870370370371     0.30671296296296297    0.6741573033707865     0.7142857142857143
+removed: cash_property_savings               0.7210648148148148     0.2789351851851852     0.7038724373576309     0.7357142857142858
+removed: income_friends_family_last_year     0.7199074074074074     0.28009259259259256    0.6995515695067265     0.7428571428571429
+removed: income_ag_livestock_last_year       0.7222222222222222     0.2777777777777778     0.7036199095022625     0.7404761904761905
+removed: married                             0.71875                0.28125                0.698876404494382      0.7404761904761905
+removed: female                              0.7222222222222222     0.2777777777777778     0.7036199095022625     0.7404761904761905
+
+-----
+TOP 17
+
+['age', 'country', 'avg_shock_strength_last_year', 'num_financial_activities_last_year', 'education_level', 'phone_technology', 'employment_type_last_year', 'relationship_to_hh_head', 'religion', 'num_times_borrowed_last_year', 'can_calc_percents', 'is_urban', 'cash_property_savings', 'income_friends_family_last_year', 'income_ag_livestock_last_year', 'married', 'female']
+         feature                             accuracy               ave_sse                precision              recall
+removed: age                                 0.7233796296296297     0.27662037037037035    0.7080459770114943     0.7333333333333333
+removed: country                             0.6875                 0.3125                 0.6736111111111112     0.6928571428571428
+removed: avg_shock_strength_last_year        0.7164351851851852     0.2835648148148148     0.6975169300225733     0.7357142857142858
+removed: num_financial_activities_last_year  0.7210648148148148     0.2789351851851852     0.7105882352941176     0.719047619047619
+removed: education_level                     0.71875                0.28125                0.7006802721088435     0.7357142857142858
+removed: phone_technology                    0.7199074074074074     0.28009259259259256    0.7050691244239631     0.7285714285714285
+removed: employment_type_last_year           0.7256944444444444     0.2743055555555555     0.7103448275862069     0.7357142857142858
+removed: relationship_to_hh_head             0.71875                0.28125                0.7006802721088435     0.7357142857142858
+removed: religion                            0.71875                0.28125                0.7034482758620689     0.7285714285714285
+removed: num_times_borrowed_last_year        0.7199074074074074     0.28009259259259256    0.7004504504504504     0.7404761904761905
+removed: can_calc_percents                   0.7164351851851852     0.2835648148148148     0.6984126984126984     0.7333333333333333
+removed: is_urban                            0.6944444444444444     0.3055555555555555     0.6756756756756757     0.7142857142857143
+removed: cash_property_savings               0.7210648148148148     0.2789351851851852     0.7038724373576309     0.7357142857142858
+removed: income_friends_family_last_year     0.7199074074074074     0.28009259259259256    0.6995515695067265     0.7428571428571429
+removed: income_ag_livestock_last_year       0.7222222222222222     0.2777777777777778     0.7036199095022625     0.7404761904761905
+removed: married                             0.71875                0.28125                0.698876404494382      0.7404761904761905
+removed: female                              0.7210648148148148     0.2789351851851852     0.7020316027088036     0.7404761904761905
+
+-----
+TOP 16
+
+['age', 'country', 'avg_shock_strength_last_year', 'num_financial_activities_last_year', 'education_level', 'phone_technology', 'relationship_to_hh_head', 'religion', 'num_times_borrowed_last_year', 'can_calc_percents', 'is_urban', 'cash_property_savings', 'income_friends_family_last_year', 'income_ag_livestock_last_year', 'married', 'female']
+         feature                             accuracy               ave_sse                precision              recall
+removed: age                                 0.7291666666666666     0.2708333333333333     0.7162790697674418     0.7333333333333333
+removed: country                             0.6863425925925926     0.3136574074074074     0.6681715575620768     0.7047619047619048
+removed: avg_shock_strength_last_year        0.7256944444444444     0.2743055555555555     0.7093821510297483     0.7380952380952381
+removed: num_financial_activities_last_year  0.7314814814814815     0.2685185185185185     0.7216981132075472     0.7285714285714285
+removed: education_level                     0.7395833333333334     0.26041666666666663    0.7152317880794702     0.7714285714285715
+removed: phone_technology                    0.7245370370370371     0.27546296296296297    0.7096774193548387     0.7333333333333333
+removed: relationship_to_hh_head             0.7233796296296297     0.27662037037037035    0.7061503416856492     0.7380952380952381
+removed: religion                            0.7141203703703703     0.2858796296296296     0.7006960556844548     0.719047619047619
+removed: num_times_borrowed_last_year        0.7199074074074074     0.28009259259259256    0.7013574660633484     0.7380952380952381
+removed: can_calc_percents                   0.7245370370370371     0.27546296296296297    0.7077625570776256     0.7380952380952381
+removed: is_urban                            0.7094907407407407     0.29050925925925924    0.6924829157175398     0.7238095238095238
+removed: cash_property_savings               0.7256944444444444     0.2743055555555555     0.7084282460136674     0.7404761904761905
+removed: income_friends_family_last_year     0.7233796296296297     0.27662037037037035    0.7052154195011338     0.7404761904761905
+removed: income_ag_livestock_last_year       0.7268518518518519     0.27314814814814814    0.7110091743119266     0.7380952380952381
+removed: married                             0.7256944444444444     0.2743055555555555     0.7093821510297483     0.7380952380952381
+removed: female                              0.7256944444444444     0.2743055555555555     0.7084282460136674     0.7404761904761905
+
+-----
+TOP 15
+
+         feature                             accuracy               ave_sse                precision              recall
+removed: age                                 0.7384259259259259     0.26157407407407407    0.7194570135746606     0.7571428571428571
+removed: country                             0.6620370370370371     0.33796296296296297    0.6422222222222222     0.6880952380952381
+removed: avg_shock_strength_last_year        0.7303240740740741     0.26967592592592593    0.7045951859956237     0.7666666666666667
+removed: num_financial_activities_last_year  0.7280092592592593     0.2719907407407407     0.720763723150358      0.719047619047619
+removed: phone_technology                    0.7256944444444444     0.2743055555555555     0.7103448275862069     0.7357142857142858
+removed: relationship_to_hh_head             0.7337962962962963     0.26620370370370366    0.7120535714285714     0.7595238095238095
+removed: religion                            0.7337962962962963     0.26620370370370366    0.7159090909090909     0.75
+removed: num_times_borrowed_last_year        0.7395833333333334     0.26041666666666663    0.7152317880794702     0.7714285714285715
+removed: can_calc_percents                   0.7384259259259259     0.26157407407407407    0.7155555555555555     0.7666666666666667
+removed: is_urban                            0.7199074074074074     0.28009259259259256    0.7089201877934272     0.719047619047619
+removed: cash_property_savings               0.7384259259259259     0.26157407407407407    0.7146017699115044     0.7690476190476191
+removed: income_friends_family_last_year     0.7199074074074074     0.28009259259259256    0.6977777777777778     0.7476190476190476
+removed: income_ag_livestock_last_year       0.7303240740740741     0.26967592592592593    0.7129840546697038     0.7452380952380953
+removed: married                             0.7210648148148148     0.2789351851851852     0.701123595505618      0.7428571428571429
+removed: female                              0.7326388888888888     0.2673611111111111     0.7076923076923077     0.7666666666666667
+
+-----
+TOP 14
+
+['age', 'country', 'avg_shock_strength_last_year', 'num_financial_activities_last_year', 'phone_technology', 'relationship_to_hh_head', 'religion', 'can_calc_percents', 'is_urban', 'cash_property_savings', 'income_friends_family_last_year', 'income_ag_livestock_last_year', 'married', 'female']
+         feature                             accuracy               ave_sse                precision              recall
+removed: age                                 0.7349537037037037     0.2650462962962963     0.7165532879818595     0.7523809523809524
+removed: country                             0.6666666666666666     0.3333333333333333     0.6434782608695652     0.7047619047619048
+removed: avg_shock_strength_last_year        0.7256944444444444     0.2743055555555555     0.701098901098901      0.7595238095238095
+removed: num_financial_activities_last_year  0.7094907407407407     0.29050925925925924    0.7026378896882494     0.6976190476190476
+removed: phone_technology                    0.7314814814814815     0.2685185185185185     0.7117117117117117     0.7523809523809524
+removed: relationship_to_hh_head             0.7291666666666666     0.2708333333333333     0.7048458149779736     0.7619047619047619
+removed: religion                            0.7303240740740741     0.26967592592592593    0.7110609480812641     0.75
+removed: can_calc_percents                   0.7384259259259259     0.26157407407407407    0.7146017699115044     0.7690476190476191
+removed: is_urban                            0.7048611111111112     0.2951388888888889     0.6905311778290993     0.7119047619047619
+removed: cash_property_savings               0.7384259259259259     0.26157407407407407    0.7146017699115044     0.7690476190476191
+removed: income_friends_family_last_year     0.7152777777777778     0.2847222222222222     0.6907894736842105     0.75
+removed: income_ag_livestock_last_year       0.7175925925925926     0.2824074074074074     0.6973094170403588     0.7404761904761905
+removed: married                             0.7233796296296297     0.27662037037037035    0.6989010989010989     0.7571428571428571
+removed: female                              0.7291666666666666     0.2708333333333333     0.7048458149779736     0.7619047619047619
+
+-----
+TOP 13
+
+['age', 'country', 'avg_shock_strength_last_year', 'num_financial_activities_last_year', 'phone_technology', 'relationship_to_hh_head', 'religion', 'is_urban', 'cash_property_savings', 'income_friends_family_last_year', 'income_ag_livestock_last_year', 'married', 'female']
+         feature                             accuracy               ave_sse                precision              recall
+removed: age                                 0.7407407407407407     0.25925925925925924    0.7207207207207207     0.7619047619047619
+removed: country                             0.6712962962962963     0.32870370370370366    0.6471861471861472     0.7119047619047619
+removed: avg_shock_strength_last_year        0.7280092592592593     0.2719907407407407     0.7015250544662309     0.7666666666666667
+removed: num_financial_activities_last_year  0.7256944444444444     0.2743055555555555     0.7163120567375887     0.7214285714285714
+removed: phone_technology                    0.7326388888888888     0.2673611111111111     0.715261958997722      0.7476190476190476
+removed: relationship_to_hh_head             0.7326388888888888     0.2673611111111111     0.7076923076923077     0.7666666666666667
+removed: religion                            0.7314814814814815     0.2685185185185185     0.7117117117117117     0.7523809523809524
+removed: is_urban                            0.7083333333333334     0.29166666666666663    0.6926605504587156     0.719047619047619
+removed: cash_property_savings               0.7361111111111112     0.2638888888888889     0.711453744493392      0.7690476190476191
+removed: income_friends_family_last_year     0.7210648148148148     0.2789351851851852     0.6967032967032967     0.7547619047619047
+removed: income_ag_livestock_last_year       0.7256944444444444     0.2743055555555555     0.7065462753950339     0.7452380952380953
+removed: married                             0.7199074074074074     0.28009259259259256    0.6951754385964912     0.7547619047619047
+removed: female                              0.7372685185185185     0.26273148148148145    0.710239651416122      0.7761904761904762
+
+-----
+TOP 12
+
+['country', 'avg_shock_strength_last_year', 'num_financial_activities_last_year', 'phone_technology', 'relationship_to_hh_head', 'religion', 'is_urban', 'cash_property_savings', 'income_friends_family_last_year', 'income_ag_livestock_last_year', 'married', 'female']
+         feature                             accuracy               ave_sse                precision              recall
+removed: country                             0.6689814814814815     0.3310185185185185     0.6469298245614035     0.7023809523809523
+removed: avg_shock_strength_last_year        0.7280092592592593     0.2719907407407407     0.7006507592190889     0.7690476190476191
+removed: num_financial_activities_last_year  0.71875                0.28125                0.7102137767220903     0.7119047619047619
+removed: phone_technology                    0.7361111111111112     0.2638888888888889     0.7181818181818181     0.7523809523809524
+removed: relationship_to_hh_head             0.7407407407407407     0.25925925925925924    0.71875                0.7666666666666667
+removed: religion                            0.7280092592592593     0.2719907407407407     0.7097505668934241     0.7452380952380953
+removed: is_urban                            0.7060185185185185     0.29398148148148145    0.6894977168949772     0.719047619047619
+removed: cash_property_savings               0.7384259259259259     0.26157407407407407    0.7184684684684685     0.7595238095238095
+removed: income_friends_family_last_year     0.71875                0.28125                0.6971046770601337     0.7452380952380953
+removed: income_ag_livestock_last_year       0.7291666666666666     0.2708333333333333     0.7094594594594594     0.75
+removed: married                             0.7222222222222222     0.2777777777777778     0.7027027027027027     0.7428571428571429
+removed: female                              0.7372685185185185     0.26273148148148145    0.7158836689038032     0.7619047619047619
+
+-----
+TOP 11
+
+         feature                             accuracy               ave_sse                precision              recall
+removed: country                             0.6689814814814815     0.3310185185185185     0.6443965517241379     0.7119047619047619
+removed: avg_shock_strength_last_year        0.7291666666666666     0.2708333333333333     0.7039473684210527     0.7642857142857142
+removed: num_financial_activities_last_year  0.7199074074074074     0.28009259259259256    0.714975845410628      0.7047619047619048
+removed: phone_technology                    0.7337962962962963     0.26620370370370366    0.7120535714285714     0.7595238095238095
+removed: religion                            0.7245370370370371     0.27546296296296297    0.7068181818181818     0.7404761904761905
+removed: is_urban                            0.7037037037037037     0.2962962962962963     0.6915887850467289     0.7047619047619048
+removed: cash_property_savings               0.7337962962962963     0.26620370370370366    0.7130044843049327     0.7571428571428571
+removed: income_friends_family_last_year     0.7222222222222222     0.2777777777777778     0.7008928571428571     0.7476190476190476
+removed: income_ag_livestock_last_year       0.7337962962962963     0.26620370370370366    0.7130044843049327     0.7571428571428571
+removed: married                             0.7175925925925926     0.2824074074074074     0.6981981981981982     0.7380952380952381
+removed: female                              0.7326388888888888     0.2673611111111111     0.7114093959731543     0.7571428571428571
+
+-----
+TOP 10
+
+['country', 'avg_shock_strength_last_year', 'num_financial_activities_last_year', 'religion', 'is_urban', 'cash_property_savings', 'income_friends_family_last_year', 'income_ag_livestock_last_year', 'married', 'female']
+         feature                             accuracy               ave_sse                precision              recall
+removed: country                             0.6724537037037037     0.3275462962962963     0.6492374727668845     0.7095238095238096
+removed: avg_shock_strength_last_year        0.7337962962962963     0.26620370370370366    0.7168949771689498     0.7476190476190476
+removed: num_financial_activities_last_year  0.6909722222222222     0.30902777777777773    0.6808510638297872     0.6857142857142857
+removed: religion                            0.7268518518518519     0.27314814814814814    0.7090909090909091     0.7428571428571429
+removed: is_urban                            0.7013888888888888     0.2986111111111111     0.7004950495049505     0.6738095238095239
+removed: cash_property_savings               0.7337962962962963     0.26620370370370366    0.7130044843049327     0.7571428571428571
+removed: income_friends_family_last_year     0.7268518518518519     0.27314814814814814    0.7053571428571429     0.7523809523809524
+removed: income_ag_livestock_last_year       0.7326388888888888     0.2673611111111111     0.7202797202797203     0.7357142857142858
+removed: married                             0.7337962962962963     0.26620370370370366    0.7130044843049327     0.7571428571428571
+removed: female                              0.7442129629629629     0.25578703703703703    0.7246049661399548     0.7642857142857142
+
+-----
+TOP 9
+
+['country', 'avg_shock_strength_last_year', 'num_financial_activities_last_year', 'religion', 'is_urban', 'cash_property_savings', 'income_friends_family_last_year', 'income_ag_livestock_last_year', 'married']
+         feature                             accuracy               ave_sse                precision              recall
+removed: country                             0.6736111111111112     0.3263888888888889     0.6506550218340611     0.7095238095238096
+removed: avg_shock_strength_last_year        0.7268518518518519     0.27314814814814814    0.7100456621004566     0.7404761904761905
+removed: num_financial_activities_last_year  0.7013888888888888     0.2986111111111111     0.6919431279620853     0.6952380952380952
+removed: religion                            0.7337962962962963     0.26620370370370366    0.7159090909090909     0.75
+removed: is_urban                            0.7037037037037037     0.2962962962962963     0.6990291262135923     0.6857142857142857
+removed: cash_property_savings               0.7326388888888888     0.2673611111111111     0.7095343680709535     0.7619047619047619
+removed: income_friends_family_last_year     0.7222222222222222     0.2777777777777778     0.6973684210526315     0.7571428571428571
+removed: income_ag_livestock_last_year       0.7326388888888888     0.2673611111111111     0.7182448036951501     0.7404761904761905
+removed: married                             0.7291666666666666     0.2708333333333333     0.7113636363636363     0.7452380952380953
+
+-----
+TOP 8
+
+['country', 'avg_shock_strength_last_year', 'num_financial_activities_last_year', 'is_urban', 'cash_property_savings', 'income_friends_family_last_year', 'income_ag_livestock_last_year', 'married']
+         feature                             accuracy               ave_sse                precision              recall
+removed: country                             0.6759259259259259     0.32407407407407407    0.6541850220264317     0.7071428571428572
+removed: avg_shock_strength_last_year        0.7303240740740741     0.26967592592592593    0.7064017660044151     0.7619047619047619
+removed: num_financial_activities_last_year  0.6898148148148148     0.3101851851851852     0.6844660194174758     0.6714285714285714
+removed: is_urban                            0.6979166666666666     0.3020833333333333     0.7064935064935065     0.6476190476190476
+removed: cash_property_savings               0.7361111111111112     0.2638888888888889     0.7181818181818181     0.7523809523809524
+removed: income_friends_family_last_year     0.7256944444444444     0.2743055555555555     0.700218818380744      0.7619047619047619
+removed: income_ag_livestock_last_year       0.7372685185185185     0.26273148148148145    0.7218390804597701     0.7476190476190476
+removed: married                             0.7268518518518519     0.27314814814814814    0.7062780269058296     0.75
+
+-----
+TOP 7
+
+['country', 'avg_shock_strength_last_year', 'num_financial_activities_last_year', 'is_urban', 'cash_property_savings', 'income_friends_family_last_year', 'married']
+         feature                             accuracy               ave_sse                precision              recall
+removed: country                             0.6631944444444444     0.3368055555555555     0.643652561247216      0.6880952380952381
+removed: avg_shock_strength_last_year        0.7280092592592593     0.2719907407407407     0.7146171693735499     0.7333333333333333
+removed: num_financial_activities_last_year  0.6817129629629629     0.31828703703703703    0.6772616136919315     0.6595238095238095
+removed: is_urban                            0.6944444444444444     0.3055555555555555     0.6989795918367347     0.6523809523809524
+removed: cash_property_savings               0.7268518518518519     0.27314814814814814    0.7072072072072072     0.7476190476190476
+removed: income_friends_family_last_year     0.7337962962962963     0.26620370370370366    0.7101769911504425     0.7642857142857142
+removed: married                             0.7303240740740741     0.26967592592592593    0.7231503579952268     0.7214285714285714
+
+-----
+TOP 6
+
+['country', 'avg_shock_strength_last_year', 'num_financial_activities_last_year', 'is_urban', 'cash_property_savings', 'married']
+         feature                             accuracy               ave_sse                precision              recall
+removed: country                             0.65625                0.34375                0.6339869281045751     0.6928571428571428
+removed: avg_shock_strength_last_year        0.7303240740740741     0.26967592592592593    0.7019438444924406     0.7738095238095238
+removed: num_financial_activities_last_year  0.6932870370370371     0.30671296296296297    0.684964200477327      0.6833333333333333
+removed: is_urban                            0.7048611111111112     0.2951388888888889     0.7188328912466844     0.6452380952380953
+removed: cash_property_savings               0.7337962962962963     0.26620370370370366    0.7092511013215859     0.7666666666666667
+removed: married                             0.7164351851851852     0.2835648148148148     0.6889848812095032     0.7595238095238095
+
+-----
+TOP 5
+
+['country', 'avg_shock_strength_last_year', 'num_financial_activities_last_year', 'is_urban', 'married']
+         feature                             accuracy               ave_sse                precision              recall
+removed: country                             0.6597222222222222     0.34027777777777773    0.6363636363636364     0.7
+removed: avg_shock_strength_last_year        0.7280092592592593     0.2719907407407407     0.6963906581740976     0.780952380952381
+removed: num_financial_activities_last_year  0.6921296296296297     0.30787037037037035    0.6833333333333333     0.6833333333333333
+removed: is_urban                            0.7094907407407407     0.29050925925925924    0.7194805194805195     0.6595238095238095
+removed: married                             0.7141203703703703     0.2858796296296296     0.6876355748373102     0.7547619047619047
+
+-----
+TOP 4
+
+['country', 'num_financial_activities_last_year', 'is_urban', 'married']
+         feature                             accuracy               ave_sse                precision              recall
+removed: country                             0.6550925925925926     0.3449074074074074     0.6412037037037037     0.6595238095238095
+removed: num_financial_activities_last_year  0.7013888888888888     0.2986111111111111     0.6840909090909091     0.7166666666666667
+removed: is_urban                            0.6921296296296297     0.30787037037037035    0.6742081447963801     0.7095238095238096
+removed: married                             0.7256944444444444     0.2743055555555555     0.7084282460136674     0.7404761904761905
+
+-----
+TOP 3
+
+['country', 'num_financial_activities_last_year', 'is_urban']
+         feature                             accuracy               ave_sse                precision              recall
+removed: country                             0.6550925925925926     0.3449074074074074     0.6412037037037037     0.6595238095238095
+removed: num_financial_activities_last_year  0.6793981481481481     0.32060185185185186    0.6621315192743764     0.6952380952380952
+removed: is_urban                            0.6932870370370371     0.30671296296296297    0.7088948787061995     0.6261904761904762
