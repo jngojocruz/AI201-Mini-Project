@@ -8,11 +8,10 @@ January 2024
 '''
 
 # Python script for preparing the data
-import pandas as pd
-import numpy as np
-from decimal import *
-from xgboost import plot_importance
-from matplotlib import pyplot
+import pandas as pd             # for dataframe
+import numpy as np              # for computations
+from decimal import *           # for representing floating values
+from matplotlib import pyplot   # for plotting
 
 def get_data():
     # Load dataset
@@ -77,7 +76,7 @@ def age_grouping(data):
 
 # Categorical grouping
 # Those categories with less representation are grouped together
-# https://www.kaggle.com/code/johnnyyiu/poverty-prediction-from-visualization-to-stacking#Exploratory-data-analysis
+# Based from: https://www.kaggle.com/code/johnnyyiu/poverty-prediction-from-visualization-to-stacking#Exploratory-data-analysis
 def feature_eng(df):
     religion_categories = {'N':'N_Q', 'O':'O_P','P':'O_P', 'Q':'N_Q','X':'X'}
     df['religion'] = [religion_categories[x] for x in df['religion']]
@@ -154,7 +153,7 @@ def get_table(train_data):
     #     print(likelihood_table_dfs[p])
     #     print()
         
-    # For numeric data
+    # For numeric data, use normal distribution formula; get mean and stdv
     # numeric_cols_list = {}
     # for feature in train_data[cols_numeric]:
     #     classes = {}
@@ -211,7 +210,7 @@ def get_measures(true_label, pred_label):
                 TN += 1
             else:
                 FP += 1
-    
+    # Evaluation metrics
     accuracy = correct_cnt / len(true_label)
     ave_sse = (1/len(true_label)) * ave_sse
     precision = TP / (TP + FP)
@@ -219,6 +218,7 @@ def get_measures(true_label, pred_label):
     f2_score = (5 * precision * recall) / (4 * precision + recall)
     specificity = TN / (TN + FP)
     balanced_acc = (recall + specificity) / 2
+    
     return accuracy, ave_sse, precision, recall, f2_score, specificity, balanced_acc
 
 
@@ -471,8 +471,6 @@ def loocv(train_data, test_data):
     #print(y_test, X_test)
 
     # Instantiate builtin classifier models
-    import xgboost
-    from xgboost import XGBRegressor
     from sklearn.naive_bayes import GaussianNB
     from sklearn.neighbors import KNeighborsClassifier
     from sklearn.linear_model import LogisticRegression
@@ -490,32 +488,10 @@ def loocv(train_data, test_data):
     # Fit X and y training
     NB_optimal.fit(X_train, y_train)
     
-    # Get importances (alternative for leave one out); not included
-    # neg_class_prob_sorted = NB_optimal.feature_log_prob_[0, :].argsort()[::-1]
-    # pos_class_prob_sorted = NB_optimal.feature_log_prob_[1, :].argsort()[::-1]
-    # print(neg_class_prob_sorted)
-    # print(np.take(feature_list, neg_class_prob_sorted))
-    # print(pos_class_prob_sorted)
-    # print(np.take(feature_list, pos_class_prob_sorted))
-    # plot feature importance
-    # print(X_train1.columns)
-    # plot_importance(NB_optimal)
-    # pyplot.show()
-
     # Predict test set
     pred = NB_optimal.predict(X_test)
     pred = pd.DataFrame(pred)
     #print(pred)
-
-    # Uncomment for XGBRegressor
-    # new_p = []
-    # for ind in range(len(pred[0])):
-    #     if pred[0].loc[ind] >= 0.5:
-    #         new_p.append(1)
-    #     else:
-    #         new_p.append(0)
-    # pred[0] = new_p
-    #print(pred[0])
 
     # Inverse label encoder to 'poor' or 'non-poor'
     pred1 = le.inverse_transform(pred[0])
